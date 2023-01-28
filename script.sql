@@ -1,0 +1,26 @@
+CREATE TABLE Accounts (
+    Id VARCHAR(36) PRIMARY KEY,
+    BankCode VARCHAR(60) NOT NULL,
+    Branch VARCHAR(60) NOT NULL,
+    AccountNumber VARCHAR(60) UNIQUE NOT NULL,
+    CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UpdatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE Transactions (
+    Id VARCHAR(36) PRIMARY KEY,
+    AccountId VARCHAR(36) NOT NULL,
+    Type      VARCHAR(60) NOT NULL,
+    Amount    FLOAT NOT NULL,
+  	FOREIGN KEY (AccountId)
+    REFERENCES Accounts(Id),
+    CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UpdatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+INSERT INTO Accounts(Id, BankCode, Branch, AccountNumber) VALUES
+('a188a603-1725-47fb-9f6a-5b1ec0aa91cc', '237', '0001', '0123456-7'),
+('145695f3-7438-4911-a69d-51074b21c8ec', '260', '0001', '1234567-8');
+
+INSERT INTO Transactions(Id, AccountId, Type, Amount) VALUES
+('7280a38e-64b9-4e70-a082-d6d32e40ff5d', 'a188a603-1725-47fb-9f6a-5b1ec0aa91cc', 'Credit', 5000.00)
